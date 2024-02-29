@@ -22,8 +22,12 @@ export const createDirectoryIfNotExists = (path) => {
 };
 
 export const readFile = (fileName) => {
-  const fileContents = readFileSync(fileName, { encoding: 'utf-8' });
-  return fileContents;
+  try {
+    const fileContents = readFileSync(fileName, { encoding: 'utf-8' });
+    return fileContents;
+  } catch (error) {
+    return '';
+  }
 };
 
 export const readJsonFile = (filename) => {
