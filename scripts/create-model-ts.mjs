@@ -15,11 +15,16 @@ import { createDirectoryIfNotExists, writeFile } from './file-io.mjs';
  *  node scripts/create-model-ts.mjs <model-name>
  */
 
+// -----------------------------------
 // create the directory for your files
-const folder = `src/models/${config.kabab}`;
+// -----------------------------------
+const parentFolder = 'src/models';
+const folder = `${parentFolder}/${config.kabab}`;
 createDirectoryIfNotExists(folder);
 
+// -----------------------------------
 // create the main file
+// -----------------------------------
 const modelTemplate = `import { getObject, getString } from '@bjanderson/utils';
 
 /**
@@ -40,7 +45,9 @@ const modelFileName = parseTemplate(`${folder}/kabab-case.model.ts`);
 const modelTxt = parseTemplate(modelTemplate);
 writeFile(modelFileName, modelTxt);
 
+// -----------------------------------
 // create a test file
+// -----------------------------------
 const modelTestTemplate = `import { PascalCase } from './kabab-case.model';
 
 describe('PascalCase', () => {
@@ -54,8 +61,20 @@ const modelTestFileName = parseTemplate(`${folder}/kabab-case.model.spec.ts`);
 const modelTestTxt = parseTemplate(modelTestTemplate);
 writeFile(modelTestFileName, modelTestTxt);
 
+// -----------------------------------
 // create an export barrel
+// -----------------------------------
 const modelIndexTemplate = `export * from './kabab-case.model'`;
 const modelIndexFileName = parseTemplate(`${folder}/index.ts`);
 const modelIndexTxt = parseTemplate(modelIndexTemplate);
 writeFile(modelIndexFileName, modelIndexTxt);
+
+// -----------------------------------
+// add to the parent export barrel
+// -----------------------------------
+const indexFile = `${parentFolder}/index.ts`;
+const index = readFile(indexFile);
+const exports = index.split('\n');
+exports.push(`export * from './${config.kabab}';`);
+exports.sort();
+writeFile(indexFile, exports.join('\n'), true);

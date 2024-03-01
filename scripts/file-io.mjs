@@ -44,8 +44,8 @@ export const readJsonFile = (filename) => {
   return {};
 };
 
-export const writeFile = (file, text) => {
-  if (pathExists(file)) {
+export const writeFile = (file, text, overwrite = false) => {
+  if (!overwrite && pathExists(file)) {
     console.error(`${file} already exists. Enter a different name.`);
     process.exit(1);
   }
