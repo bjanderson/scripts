@@ -87,16 +87,32 @@ export const titleFromKabob = (value) => {
   return title;
 };
 
+/**
+ * Will match something like this:
+@Module({
+  imports: [AccountModule, AccountProviderModule],
+  controllers: [AppController],
+  providers: [AppService],
+})
+ */
 export const getJsonObjectInParenthesisFromString = (str) => {
   const re = /\(({([^}]*)})\)/g;
   return str.match(re);
 };
 
+/**
+ * Will match something like this:
+imports: [AccountModule, AccountProviderModule]
+ */
 export const getPropertyArrayValuesFromString = (str, prop) => {
   const re = new RegExp(`${prop}: \\[([^\\[\\]]*)\\]`, 'g');
   return str.match(re);
 };
 
+/**
+ * Will match something like this:
+[AccountModule, AccountProviderModule]
+ */
 export const getArrayValuesFromString = (str) => {
   const re = /\[([^\[\]]*)\]/g;
   return str.match(re);
