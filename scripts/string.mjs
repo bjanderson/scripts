@@ -86,3 +86,18 @@ export const titleFromKabob = (value) => {
   });
   return title;
 };
+
+export const getJsonObjectInParenthesisFromString = (str) => {
+  const re = /\(({([^}]*)})\)/g;
+  return str.match(re);
+};
+
+export const getPropertyArrayValuesFromString = (str, prop) => {
+  const re = new RegExp(`${prop}: \\[([^\\[\\]]*)\\]`, 'g');
+  return str.match(re);
+};
+
+export const getArrayValuesFromString = (str) => {
+  const re = /\[([^\[\]]*)\]/g;
+  return str.match(re);
+};

@@ -1,5 +1,5 @@
 import { config, parseTemplate } from './config.mjs';
-import { readFile, writeFile } from './file-io.mjs';
+import { createDirectoryIfNotExists, readFile, writeFile } from './file-io.mjs';
 
 const folder = 'src/enums';
 createDirectoryIfNotExists(folder);
